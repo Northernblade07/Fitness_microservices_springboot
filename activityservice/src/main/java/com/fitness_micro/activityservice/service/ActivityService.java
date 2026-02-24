@@ -5,8 +5,13 @@ import com.fitness_micro.activityservice.dto.ActivityResponse;
 import com.fitness_micro.activityservice.model.Activity;
 import com.fitness_micro.activityservice.repository.ActivityRepository;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -41,5 +46,19 @@ public class ActivityService {
         activityResponse.setStartTime(activity.getStartTime());
 
         return activityResponse;
+    }
+
+
+    public List<ActivityResponse> getUserActivity(String userId) {
+       List<Activity> activities =  activityRepository.findByUserId(userId);
+
+       return activities.stream().map(this::maptoResponse).collect(Collectors.toList());
+    }
+
+    public ActivityResponse getActivityBYId(String id){
+
+        Activity activity = activityRepository.findById(id).orElseThrow(()->new RuntimeException("no activity was found with id"+id));
+
+        return maptoResponse(activity);
     }
 }
