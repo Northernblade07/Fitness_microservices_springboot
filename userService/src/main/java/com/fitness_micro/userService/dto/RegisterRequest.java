@@ -10,7 +10,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 public class RegisterRequest {
 
     @NotBlank(message = "Email is Required")
