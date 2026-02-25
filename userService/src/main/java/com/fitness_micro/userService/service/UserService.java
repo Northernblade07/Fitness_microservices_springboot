@@ -5,6 +5,7 @@ import com.fitness_micro.userService.dto.UserResponse;
 import com.fitness_micro.userService.model.User;
 import com.fitness_micro.userService.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -52,4 +53,7 @@ public class UserService {
         return  userResponse;
     }
 
+    public  Boolean existsByUserId(String userId) {
+        return userRepository.existsById(userId);
+    }
 }
