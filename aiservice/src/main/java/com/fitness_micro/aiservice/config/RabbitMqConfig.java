@@ -24,27 +24,27 @@ public class RabbitMqConfig {
     private String routingKey;
 
 
-//    create a bean for queue
+    //    create a bean for queue
     @Bean
     public Queue activityQueue(){
         return new Queue(queue,true);
     }
 
 
-//    create a bean activityexchange with directexchange
+    //    create a bean activityexchange with directexchange
     @Bean
     public DirectExchange activityExchange(){
         return new DirectExchange(exchange);
     }
 
-//    create a bean for binding the queue to exchange with the routingKey
+    //    create a bean for binding the queue to exchange with the routingKey
     @Bean
     public Binding activityBinding(Queue activityQueue, DirectExchange activityExchange){
-         return BindingBuilder.bind(activityQueue).to(activityExchange).with(routingKey);
+        return BindingBuilder.bind(activityQueue).to(activityExchange).with(routingKey);
     }
 
 
-//    create a bean to convert the message to json format for rabbitmq
+    //    create a bean to convert the message to json format for rabbitmq
     @Bean
     public MessageConverter jsonMessageConverter(){
         return new JacksonJsonMessageConverter();
