@@ -1,0 +1,18 @@
+package com.fitness_micro.aiservice.repository;
+
+import com.fitness_micro.aiservice.model.Recommendation;
+import org.jspecify.annotations.Nullable;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
+
+@Repository
+public interface RecommendationRepository extends MongoRepository<Recommendation,String> {
+
+    @Nullable List<Recommendation> findByUserId(String userId);
+
+    Optional<Recommendation> findByActivityId(String activityId);
+}
