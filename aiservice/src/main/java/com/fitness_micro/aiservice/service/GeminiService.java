@@ -19,8 +19,8 @@ public class GeminiService {
     @Value("${gemini.api.key}")
     private String geminiKey;
 
-    public GeminiService(WebClient.Builder webClient) {
-        this.webClient = webClient.build();
+    public GeminiService(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.build();
     }
 
     public String getAnswer(String question){
