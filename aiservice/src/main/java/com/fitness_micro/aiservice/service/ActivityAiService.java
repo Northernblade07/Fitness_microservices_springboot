@@ -66,7 +66,7 @@ public class ActivityAiService {
             addAnalysisSection(fullAnalysis , analysisNode , "caloriesBurned" ,"Calories Burned:");
 
             List<String> improvements = extractImprovements(analysisJson.path("improvements"));
-            List<String> suggestions = extractSuggestions(analysisJson.path("suggestion"));
+            List<String> suggestions = extractSuggestions(analysisJson.path("suggestions"));
 
             List<String> safety = extractSafety(analysisJson.path("safety"));
 
