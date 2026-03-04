@@ -1,4 +1,4 @@
-package com.fitness_micro.userService.dto;
+package com.fitness_micro.gateway.userConfig;
 
 
 import lombok.Getter;

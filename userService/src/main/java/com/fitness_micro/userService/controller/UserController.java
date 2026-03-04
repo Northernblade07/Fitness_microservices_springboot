@@ -2,11 +2,14 @@ package com.fitness_micro.userService.controller;
 
 import com.fitness_micro.userService.dto.RegisterRequest;
 import com.fitness_micro.userService.dto.UserResponse;
+import com.fitness_micro.userService.model.User;
 import com.fitness_micro.userService.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -31,6 +34,19 @@ public class UserController {
     public ResponseEntity<Boolean> validateUser(@PathVariable String userId){
         return ResponseEntity.ok(userService.existsByUserId(userId));
     }
+
+
+
+    @GetMapping("/id/{userId}/validate")
+    public ResponseEntity<Boolean> validateUserId(@PathVariable String userId){
+        return ResponseEntity.ok(userService.existsById(userId));
+    }
+
+    @GetMapping("/allUsers")
+    public ResponseEntity<List<User>> getAllUsers(){
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
+
 
 
 
