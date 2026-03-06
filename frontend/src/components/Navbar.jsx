@@ -34,7 +34,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full backdrop-blur-md bg-white/70 border-b border-gray-200 fixed top-0 z-50">
+    <nav className="w-full backdrop-blur-md nav bg-indigo-200 border-b border-gray-200 fixed top-0 z-50 rounded-b-3xl">
 
       <div className="max-w-7xl mx-auto px-6">
 

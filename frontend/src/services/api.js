@@ -30,5 +30,10 @@ export const addActivity =(activity)=>{
 }
 
 export const getActivityDetail =(id)=>{
+   return api.get(`/activity/${id}`)
+}
+
+
+export const getActivityrecommendations =(id)=>{
    return api.get(`/recommendations/activity/${id}`)
 }

@@ -5,7 +5,7 @@ import { Link } from "react-router";
 const Home = () => {
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-purple-100 flex flex-col justify-center items-center text-center">
+    <div className="min-h-screen flex flex-col justify-center items-center text-center">
 
       <motion.h1
         initial={{ opacity: 0, y: 40 }}

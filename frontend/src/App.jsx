@@ -24,8 +24,10 @@ const [authReady, setAuthReady] = useState(false);
 
     if (token) {
       dispatch(setCredentials({ token, user: tokenData }));
-    }
       setAuthReady(true);
+      console.log(token)
+      console.log(tokenData)
+    }
 
 
   }, [token, tokenData, dispatch]);
