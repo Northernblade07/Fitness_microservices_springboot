@@ -12,7 +12,7 @@ import ProtectedRoute from "./ProtectedRoutes";
 import Navbar from "./components/Navbar";
 import Profile from "./pages/Profile";
 import Activity from "./pages/Activity";
-import ActivityDetails from "./components/ActivityDetails";
+import ActivityDetails from "./pages/ActivityDetails";
 
 const App = () => {
 

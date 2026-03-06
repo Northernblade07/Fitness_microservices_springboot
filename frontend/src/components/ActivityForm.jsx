@@ -1,6 +1,7 @@
 import { TextField, Button, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { addActivity } from "../services/api";
 
 const ActivityForm = ({ onActivityAdded }) => {
     const [activity , setActivity] = useState({
@@ -14,6 +15,7 @@ const ActivityForm = ({ onActivityAdded }) => {
     const handleChange = (e) => {
     const { name, value } = e.target;
     setActivity((prev) => ({ ...prev, [name]: value }));
+    console.log(activity)
   };
 
     const handleSubmit=async(e)=>{
@@ -21,7 +23,8 @@ const ActivityForm = ({ onActivityAdded }) => {
         e.preventDefault();
         try {
             console.log(activity)
-            // await addActivity(activity);
+           const res =  await addActivity(activity);
+           console.log(res)
 if (onActivityAdded) onActivityAdded();
            setActivity({
         type: "RUNNING",

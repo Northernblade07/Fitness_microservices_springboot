@@ -17,12 +17,13 @@ public class ActivityController {
     private final ActivityService activityService;
 
     @PostMapping
-    public ResponseEntity<ActivityResponse> trackActivity(@RequestBody ActivityRequest request){
+    public ResponseEntity<ActivityResponse> trackActivity(@RequestBody ActivityRequest request , @RequestHeader("X-USER-ID") String userID){
+        request.setUserId(userID);
         return ResponseEntity.ok(activityService.trackActivity(request));
     }
 
     @GetMapping
-    public ResponseEntity<List<ActivityResponse>> getUserActivity(@RequestHeader("X-User-ID") String userId){
+    public ResponseEntity<List<ActivityResponse>> getUserActivity(@RequestHeader("X-USER-ID") String userId){
         return ResponseEntity.ok(activityService.getUserActivity(userId));
     }
 
