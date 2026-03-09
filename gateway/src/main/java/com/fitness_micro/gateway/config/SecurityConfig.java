@@ -32,7 +32,12 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173"));
+        config.setAllowedOrigins(List.of(
+            "http://localhost:5173",
+            "https://ai-fitness-micro-frontend.vercel.app",
+            "https://ai-fitness-micro-frontend-prashant-bhandaris-projects.vercel.app",
+            "https://*.vercel.app"
+    ));
         config.setAllowedMethods(Arrays.asList("GET","POST" ,"PUT" ,"DELETE" , "OPTIONS"));
         config.setAllowedHeaders(Arrays.asList("Authorization" , "Content-Type", "X-USER-ID"));
         config.setAllowCredentials(true);
