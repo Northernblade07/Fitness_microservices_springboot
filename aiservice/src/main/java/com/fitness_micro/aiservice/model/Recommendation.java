@@ -1,8 +1,6 @@
 package com.fitness_micro.aiservice.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -16,6 +14,8 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Recommendation {
 
     @Id
@@ -23,7 +23,7 @@ public class Recommendation {
     private String activityId;
     private String userId;
     private String activityType;
-    private String Recommendation;
+    private String recommendation;
     private List<String> improvements;
     private List<String> suggestions;
     private List<String> safety;

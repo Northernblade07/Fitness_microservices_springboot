@@ -77,7 +77,7 @@ public class ActivityAiService {
                     .activityType(activity.getType())
                     .improvements(improvements)
                     .suggestions(suggestions)
-                    .Recommendation(fullAnalysis.toString().trim())
+                    .recommendation(fullAnalysis.toString().trim())
                     .createdAt(LocalDateTime.now())
                     .build();
         } catch (Exception e){
@@ -93,7 +93,7 @@ public class ActivityAiService {
                 .activityId(activity.getId())
                 .userId(activity.getUserId())
                 .improvements(Collections.singletonList("Continue with your "))
-                .Recommendation("Unable to generate detailed analysis")
+                .recommendation("Unable to generate detailed analysis")
                 .suggestions(Collections.singletonList("Consider consulting"))
                 .safety(Arrays.asList(
                         "Always warm up before exercise",
@@ -204,12 +204,12 @@ public class ActivityAiService {
                 IMPORTANT:
                 - Return ONLY valid JSON
                 - Do NOT add markdown
-                - Do NOT add explanations
                 """,
                 activity.getType(),
                 activity.getDuration(),
                 activity.getCaloriesBurned(),
-                activity.getAdditionalMetrics()
+                activity.getAdditionalMetrics(),
+                activity.getStartTime()
         );
     }
 }

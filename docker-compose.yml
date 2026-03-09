@@ -1,27 +1,91 @@
 version: "3.9"
 
 services:
+
   rabbitmq:
     image: rabbitmq:3-management
-    container_name: fitness-rabbitmq
     restart: always
-
     ports:
-      - "5672:5672"     # RabbitMQ messaging port
-      - "15672:15672"   # Management UI
-
+      - "5672:5672"
+      - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin@123
-
-    volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
-
+    mem_limit: 150m
     healthcheck:
       test: ["CMD", "rabbitmq-diagnostics", "check_running"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-volumes:
-  rabbitmq_data:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0
+    command: start-dev --import-realm
+    restart: always
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_JAVA_OPTS: "-Xms64m -Xmx256m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m"
+    ports:
+      - "8181:8080"
+    volumes:
+      - ./realm-export.json:/opt/keycloak/data/import/realm-export.json
+    mem_limit: 350m
+
+  eureka:
+    image: k9pacific/eureka-server:latest
+    restart: always
+    ports:
+      - "8761:8761"
+    mem_limit: 120m
+
+  config-server:
+    image: k9pacific/config-server:latest
+    restart: always
+    ports:
+      - "8888:8888"
+    depends_on:
+      - eureka
+    mem_limit: 120m
+
+  user-service:
+    image: k9pacific/user-service:latest
+    restart: always
+    depends_on:
+      - eureka
+      - config-server
+    mem_limit: 160m
+
+  activity-service:
+    image: k9pacific/activity-service:latest
+    restart: always
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      eureka:
+        condition: service_started
+      config-server:
+        condition: service_started
+    mem_limit: 160m
+
+  ai-service:
+    image: k9pacific/ai-service:latest
+    restart: always
+    environment:
+      GEMINI_API_URL: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+      GEMINI_API_KEY: "PUT_YOUR_REAL_KEY_HERE"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    mem_limit: 160m
+
+  api-gateway:
+    image: k9pacific/api-gateway:latest
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka
+      - config-server
+      - keycloak
+    mem_limit: 160m
